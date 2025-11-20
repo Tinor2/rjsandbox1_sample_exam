@@ -54,10 +54,12 @@ body {
 /* Grid layout - arranges recipe cards responsively */
 .grid-4-col {
     display: grid;                      /* Creates a grid layout */
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    /* Exactly two columns on wider viewports */
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    /* Four columns on wider viewports */
     gap: 20px;                          /* Space between grid items */
     padding: 0 20px;                    /* Space on left and right sides */
+    max-width: 1600px;                  /* Maximum width for better readability */
+    margin: 0 auto;                     /* Center the grid */
 }
 
 /* ------- CARD STYLES ------- */
@@ -147,11 +149,12 @@ body {
 /* Container for recipe image and details - uses flexbox layout */
 .recipe-content {
     display: flex;                      /* Arranges items side by side */
-    flex-wrap: wrap;                    /* Allows items to wrap to next line on smaller screens */
+    flex-wrap: nowrap;                  /* Prevents wrapping on larger screens */
     gap: 20px;                          /* Space between image and details */
-    padding-left: 20px;                 /* Space on the left side */
-    padding-right: 20px;                /* Space on the right side */
+    padding: 0 20px;                    /* Space on the sides */
     box-sizing: border-box;             /* Ensures padding is included in width calculation */
+    max-width: 1400px;                  /* Maximum width for better readability */
+    margin: 0 auto;                     /* Center the content */
 }
 
 /* Recipe image styling */
@@ -161,6 +164,7 @@ body {
     height: auto;                       /* Maintains image proportions */
     border-radius: 10px;                /* Rounded corners for the image */
     object-fit: cover;                  /* Ensures image covers the area nicely */
+    order: 1;                           /* Places the image first in the flex container */
 }
 
 /* Recipe details container - holds title, ingredients, directions */
@@ -173,6 +177,7 @@ body {
     border-radius: 10px;                /* Rounded corners */
     box-sizing: border-box;             /* Ensures padding is included in width */
     width: calc(70% - 40px);            /* Takes up 70% of container width minus gap */
+    order: 2;                           /* Places the details second in the flex container */
 }
 
 /* Recipe metadata section - stacks detail chips vertically */
@@ -369,17 +374,43 @@ body {
 
 /* ------- RESPONSIVE DESIGN FOR MOBILE ------- */
 /* These styles apply when the screen is smaller than 768 pixels wide (phones and tablets) */
-@media (max-width: 768px) {
-    /* Changes recipe grid to a single column on mobile */
+@media (max-width: 1024px) {
+    /* Three columns on medium screens */
     .grid-4-col {
-        grid-template-columns: 1fr;      /* One column instead of four */
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    /* Two columns on small tablets */
+    .grid-4-col {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        padding: 10px;
+    }
+}
+
+@media (max-width: 768px) {
+    /* Single column on mobile */
+    .grid-4-col {
+        grid-template-columns: 1fr;      /* One column on small screens */
         padding: 10px;                   /* Less padding on mobile */
     }
 
-    /* Makes recipe content stack vertically */
+    /* Makes recipe content stack vertically on mobile */
     .recipe-content {
         flex-direction: column;          /* Stack content vertically */
         width: 100%;                     /* Full width */
+    }
+    
+    /* Make image full width on mobile */
+    .recipe-image {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+    
+    /* Make details full width on mobile */
+    .recipe-details-container {
+        width: 100%;
     }
 
     /* Makes image and details full width on mobile */
